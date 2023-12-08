@@ -19,9 +19,9 @@ func main() {
 	var instruction string
 	fmt.Scanf("%s\n\n", &instruction)
 
+	// Tree creation
 	tree := make(map[string](map[byte]string))
 	startingNodes := make([]string, 0)
-
 	for {
 		var node, left, right string
 		_, err := fmt.Scanf("%3s = (%3s, %3s)\n", &node, &left, &right)
@@ -37,26 +37,21 @@ func main() {
 		}
 	}
 
+	// Each starting node has a different number of steps to the end
 	resultsList := make([]int, 0, len(startingNodes))
-
 	for _, startingNode := range startingNodes {
 		currentNode := startingNode
 		stepsToEnd := 0
 		for currentNode[2] != 'Z' {
-			// fmt.Println(currentNode)
 			index := stepsToEnd % len(instruction)
-			if instruction[index] == 'L' {
-				currentNode = tree[currentNode]['L']
-			} else {
-				currentNode = tree[currentNode]['R']
-			}
+			side := instruction[index]
+			currentNode = tree[currentNode][side]
 			stepsToEnd++
 		}
 		resultsList = append(resultsList, stepsToEnd)
-		// fmt.Println("end loop\n")
-
 	}
 
+	// Find the LCM of all the steps
 	result := 1
 	for _, v := range resultsList {
 		result = lcm(result, v)
