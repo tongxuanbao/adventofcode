@@ -8,8 +8,8 @@ func main() {
 	var instruction string
 	fmt.Scanf("%s\n\n", &instruction)
 
+	// Tree creation
 	tree := make(map[string](map[byte]string))
-
 	for {
 		var node, left, right string
 		_, err := fmt.Scanf("%3s = (%3s, %3s)\n", &node, &left, &right)
@@ -21,16 +21,14 @@ func main() {
 			'R': right,
 		}
 	}
+
+	// Tree traversal
 	result := 0
 	currentNode := "AAA"
-
 	for currentNode != "ZZZ" {
 		index := result % len(instruction)
-		if instruction[index] == 'L' {
-			currentNode = tree[currentNode]['L']
-		} else {
-			currentNode = tree[currentNode]['R']
-		}
+		side := instruction[index]
+		currentNode = tree[currentNode][side]
 		result++
 	}
 
