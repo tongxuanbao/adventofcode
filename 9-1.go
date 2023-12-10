@@ -37,12 +37,11 @@ func nextLine(line []int) []int {
 }
 
 func calculateLine(line []int) int {
-	currentLine := line
 	result := line[len(line)-1]
-	if isAllZero(currentLine) {
+	if isAllZero(line) {
 		return result
 	}
-	return result + calculateLine(nextLine(currentLine))
+	return result + calculateLine(nextLine(line))
 }
 
 func main() {
